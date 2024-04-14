@@ -13,5 +13,4 @@ dbUpgrade () {
 
 }
 
-
 php bin/console database:check_schema_integrity || dbUpgrade
