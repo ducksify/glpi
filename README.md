@@ -8,10 +8,10 @@
 Manifest files for build and deploy the **GLPI** as Containers with Docker using docker-compose or Kubernetes.
 
 In this versio we have deployment containers with: 
-- [x] alpine 3.18; 
-- [x] php 8.2; 
-- [x] nginx 1.25.3; 
-- [x] glpi 10.0.14; 
+- [x] php:8.3.6-fpm-alpine3.19; 
+- [x] nginx:1.25.4-alpine3.18; 
+- [x] eftechcombr/glpi:php-fpm-10.0.14;
+- [x] eftechcombr/glpi:nginx-10.0.14. 
 
 
 
