@@ -1,4 +1,3 @@
-version: "3.5"
 services:
   mariadb: 
     image: mariadb:10.6
@@ -7,7 +6,16 @@ services:
       - mariadb-glpi-volume:/var/lib/mysql:rw
     env_file: ./.env
     ports: 
-      - 3306:3306
+      - 3306:3306      
+
+  mariadb-timezone: 
+    image: mariadb:10.6
+    restart: unless-stopped
+    env_file: ./.env
+    depends_on:
+      - mariadb
+    command: mysql -h $MARIADB_HOST -u root -p$MARIADB_ROOT_PASSWORD -e "GRANT SELECT ON \`mysql\`.\`time_zone_name\` TO 'glpi'@'%'; FLUSH PRIVILEGES; FLUSH PRIVILEGES;"
+
   glpi-db-install:
     image: eftechcombr/glpi:php-fpm-10.0.14
     restart: on-failure 
@@ -20,6 +28,7 @@ services:
       - mariadb
     command: 
       - /usr/local/bin/glpi-db-install.sh
+
   glpi-verify-dir: 
     image: eftechcombr/glpi:php-fpm-10.0.14
     restart: on-failure
@@ -32,6 +41,7 @@ services:
       - glpi-db-install
     command: 
       - /usr/local/bin/glpi-verify-dir.sh
+
   glpi-db-configure: 
     image: eftechcombr/glpi:php-fpm-10.0.14
     restart: on-failure
@@ -44,6 +54,7 @@ services:
       - glpi-verify-dir
     command: 
       - /usr/local/bin/glpi-db-configure.sh
+
   php: 
     build: php/
     image: eftechcombr/glpi:php-fpm-10.0.14
@@ -60,6 +71,7 @@ services:
       - glpi-verify-dir
     ports: 
       - "9000:9000"
+
   nginx: 
     build: nginx/
     image: eftechcombr/glpi:nginx-10.0.14
@@ -68,12 +80,14 @@ services:
       - "8080:80"
     depends_on: 
       - php
+
 volumes: 
   glpi-marketplace:
   glpi-files:
   glpi-etc:
   glpi-install:
   mariadb-glpi-volume: 
-#networks: 
-#  glpi-frontend: 
-#  glpi-backend:
+
+# networks: 
+#   glpi-frontend: 
+#   glpi-backend:

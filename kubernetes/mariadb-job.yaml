@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mariadb-timezone
+  namespace: glpi
+spec:
+  template:
+    spec:
+      containers:
+      - image: mariadb:10.6
+        imagePullPolicy: IfNotPresent
+        name: base
+        command:
+        - sh 
+        - -c
+        - "mysql -h $MARIADB_HOST -u root -p$MARIADB_ROOT_PASSWORD -e \"GRANT SELECT ON \`mysql\`.\`time_zone_name\` TO 'glpi'@'%'; FLUSH PRIVILEGES; FLUSH PRIVILEGES;\""
+        envFrom: 
+        - secretRef: 
+            name: mariadb-glpi-secret
+      restartPolicy: Never
+  backoffLimit: 5
+status: {}
+
