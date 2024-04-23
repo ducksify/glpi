@@ -13,6 +13,25 @@ In this versio we have deployment containers with:
 - [x] eftechcombr/glpi:php-fpm-10.0.14;
 - [x] eftechcombr/glpi:nginx-10.0.14. 
 
+## Credentials
+
+    username: glpi
+    password: glpi
+
+## Variables
+
+### docker-compose 
+
+    ./docker/_env ---> please rename to /docker/.env
+
+
+### kubernetes
+
+    ./kubernetes/glpi-configmap.yaml
+    ./kubernetes/glpi-secrets.yaml
+    ./kubernetes/mariadb-configmap.yaml
+    ./kubernetes/mariadb-secret.yaml 
+    
 
 
 ## About GLPI
