@@ -11,12 +11,15 @@ spec:
         imagePullPolicy: IfNotPresent
         name: base
         command:
-        - sh 
-        - -c
-        - "mysql -h $MARIADB_HOST -u root -p$MARIADB_ROOT_PASSWORD -e \"GRANT SELECT ON \`mysql\`.\`time_zone_name\` TO 'glpi'@'%'; FLUSH PRIVILEGES; FLUSH PRIVILEGES;\""
+        - sh
+        - -c 
+        - "mysql --host=${MARIADB_HOST} -u root -p${MARIADB_ROOT_PASSWORD} -e \"GRANT SELECT ON mysql.time_zone_name TO 'glpi'@'%'; FLUSH PRIVILEGES;\""
         envFrom: 
         - secretRef: 
             name: mariadb-glpi-secret
+        - configMapRef: 
+            name: mariadb-glpi-config
+
       restartPolicy: Never
   backoffLimit: 5
 status: {}

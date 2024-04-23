@@ -5,9 +5,10 @@ metadata:
   name: glpi-files
   namespace: glpi
 spec:
-  storageClassName: longhorn
+  # storageClassName: longhorn
   accessModes:
-    - ReadWriteMany
+    # - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 10Gi
@@ -19,9 +20,10 @@ metadata:
   name: glpi-marketplace
   namespace: glpi
 spec:
-  storageClassName: longhorn
+  # storageClassName: longhorn
   accessModes:
-    - ReadWriteMany
+#    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 2Gi
@@ -35,9 +37,10 @@ metadata:
   name: glpi-etc
   namespace: glpi
 spec:
-  storageClassName: longhorn
+  # storageClassName: longhorn
   accessModes:
-    - ReadWriteMany
+#    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 50Mi
