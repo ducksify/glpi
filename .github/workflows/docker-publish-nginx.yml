@@ -19,7 +19,7 @@ env:
   REGISTRY: "docker.io"
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
-  # VERSION: "10.0.14"
+  # VERSION: "10.0.15"
 
 jobs:
   build-nginx:
