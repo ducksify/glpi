@@ -1,4 +1,16 @@
 version = 1
 
 [[analyzers]]
+name = "docker"
+
+  [analyzers.meta]
+  dockerfile_paths = [
+    "docker/php", 
+    "docker/nginx"
+  ]
+
+[[analyzers]]
+name = "secrets"
+
+[[analyzers]]
 name = "shell"
