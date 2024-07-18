@@ -37,8 +37,9 @@ spec:
       - name: marketplace
         persistentVolumeClaim:
           claimName: glpi-marketplace
-      restartPolicy: Never
-  backoffLimit: 4
+      restartPolicy: OnFailure
+  parallelism: 1
+  completions: 1
 status: {}
 
 
@@ -82,8 +83,9 @@ spec:
       - name: marketplace
         persistentVolumeClaim:
           claimName: glpi-marketplace          
-      restartPolicy: Never
-  backoffLimit: 4
+      restartPolicy: OnFailure
+  parallelism: 1
+  completions: 1
 status: {}
 
 
@@ -126,8 +128,9 @@ spec:
       - name: marketplace
         persistentVolumeClaim:
           claimName: glpi-marketplace          
-      restartPolicy: Never
-  backoffLimit: 4
+      restartPolicy: OnFailure
+  parallelism: 1
+  completions: 1
 status: {}
 
 
@@ -170,7 +173,8 @@ spec:
       - name: marketplace
         persistentVolumeClaim:
           claimName: glpi-marketplace          
-      restartPolicy: Never
-  backoffLimit: 4
+      restartPolicy: OnFailure
+  parallelism: 1
+  completions: 1
 status: {}
 
