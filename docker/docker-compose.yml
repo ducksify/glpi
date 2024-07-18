@@ -14,7 +14,7 @@ services:
     env_file: ./.env
     depends_on:
       - mariadb
-    command: mysql -h $MARIADB_HOST -u root -p$MARIADB_ROOT_PASSWORD -e "GRANT SELECT ON \`mysql\`.\`time_zone_name\` TO 'glpi'@'%'; FLUSH PRIVILEGES; FLUSH PRIVILEGES;"
+    command: mysql -h $MARIADB_HOST -u root -p$MARIADB_ROOT_PASSWORD -e "GRANT SELECT ON \`mysql\`.\`time_zone_name\` TO 'glpi'@'%'; FLUSH PRIVILEGES;"
 
   glpi-db-install:
     image: eftechcombr/glpi:php-fpm-10.0.16
