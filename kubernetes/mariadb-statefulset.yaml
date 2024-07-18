@@ -41,7 +41,7 @@ spec:
               topologyKey: kubernetes.io/hostname
             weight: 1
       containers:
-      - image: mariadb:10.6
+      - image: mariadb:11.4
         name: mariadb
         imagePullPolicy: IfNotPresent
         envFrom: 
