@@ -1,30 +1,30 @@
 FROM php:8.3.8-fpm-alpine3.20
 
-ENV VERSION 10.0.16
-ENV GLPI_LANG en_US
-ENV MARIADB_HOST mariadb-glpi
-ENV MARIADB_PORT 3306
-ENV MARIADB_DATABASE glpi
-ENV MARIADB_USER glpi
-ENV MARIADB_PASSWORD glpi  
-ENV GLPI_CONFIG_DIR /etc/glpi/config
-ENV GLPI_VAR_DIR /var/lib/glpi
-ENV GLPI_MARKETPLACE_DIR ${GLPI_VAR_DIR}/_marketplace
-ENV GLPI_DOC_DIR ${GLPI_VAR_DIR}
-ENV GLPI_CRON_DIR ${GLPI_VAR_DIR}/_cron
-ENV GLPI_DUMP_DIR ${GLPI_VAR_DIR}/_dumps
-ENV GLPI_GRAPH_DIR ${GLPI_VAR_DIR}/_graphs
-ENV GLPI_LOCK_DIR ${GLPI_VAR_DIR}/_lock
-ENV GLPI_LOG_DIR ${GLPI_VAR_DIR}/_log
-ENV GLPI_PICTURE_DIR ${GLPI_VAR_DIR}/_pictures
-ENV GLPI_PLUGIN_DOC_DIR ${GLPI_VAR_DIR}/_plugins
-ENV GLPI_RSS_DIR  ${GLPI_VAR_DIR}/_rss
-ENV GLPI_SESSION_DIR ${GLPI_VAR_DIR}/_sessions
-ENV GLPI_TMP_DIR ${GLPI_VAR_DIR}/_tmp
-ENV GLPI_UPLOAD_DIR ${GLPI_VAR_DIR}/_uploads
-ENV GLPI_CACHE_DIR ${GLPI_VAR_DIR}/_cache
+ENV VERSION=10.0.16 \
+    GLPI_LANG=en_US \
+    MARIADB_HOST=mariadb-glpi \
+    MARIADB_PORT=3306 \
+    MARIADB_DATABASE=glpi \
+    MARIADB_USER=glpi \
+    MARIADB_PASSWORD=glpi \
+    GLPI_CONFIG_DIR=/etc/glpi/config \
+    GLPI_VAR_DIR=/var/lib/glpi \
+    GLPI_MARKETPLACE_DIR=${GLPI_VAR_DIR}/_marketplace \
+    GLPI_DOC_DIR=${GLPI_VAR_DIR} \
+    GLPI_CRON_DIR=${GLPI_VAR_DIR}/_cron \
+    GLPI_DUMP_DIR=${GLPI_VAR_DIR}/_dumps \
+    GLPI_GRAPH_DIR=${GLPI_VAR_DIR}/_graphs \
+    GLPI_LOCK_DIR=${GLPI_VAR_DIR}/_lock \
+    GLPI_LOG_DIR=${GLPI_VAR_DIR}/_log \
+    GLPI_PICTURE_DIR=${GLPI_VAR_DIR}/_pictures \
+    GLPI_PLUGIN_DOC_DIR=${GLPI_VAR_DIR}/_plugins \
+    GLPI_RSS_DIR=${GLPI_VAR_DIR}/_rss \
+    GLPI_SESSION_DIR=${GLPI_VAR_DIR}/_sessions \
+    GLPI_TMP_DIR=${GLPI_VAR_DIR}/_tmp \
+    GLPI_UPLOAD_DIR=${GLPI_VAR_DIR}/_uploads \
+    GLPI_CACHE_DIR=${GLPI_VAR_DIR}/_cache
 
-ADD conf.d/*.ini $PHP_INI_DIR/conf.d/
+COPY conf.d/*.ini $PHP_INI_DIR/conf.d/
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
@@ -62,7 +62,7 @@ RUN tar -zxf /tmp/glpi-${VERSION}.tgz -C /tmp/ \
 	&& chown -R www-data:www-data /var/www/html \
 	&& rm -rf /tmp/glpi-${VERSION}.tgz
 
-ADD scripts/glpi-*.sh /usr/local/bin/
+COPY scripts/glpi-*.sh /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/glpi-*.sh \
   && /usr/local/bin/glpi-verify-dir.sh
