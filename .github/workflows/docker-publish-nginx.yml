@@ -42,11 +42,10 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           flavors: |
-            latest=auto 
-            prefix=nginx-
+            latest=false 
           tags: |
-            type=semver,pattern={{version}}
-            type=ref,event=branch
+            type=semver,pattern={{version}},prefix=nginx-
+            type=ref,event=branch,prefix=nginx-
 
 
       - name: Build and push Docker image
