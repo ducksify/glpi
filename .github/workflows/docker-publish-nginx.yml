@@ -45,7 +45,10 @@ jobs:
             latest=false 
           tags: |
             type=semver,pattern={{version}},prefix=nginx-
+            type=semver,pattern={{version}},suffix=-nginx
             type=ref,event=branch,prefix=nginx-
+            type=ref,event=branch,suffix=-nginx  
+            type=raw,value=nginx
 
 
       - name: Build and push Docker image
