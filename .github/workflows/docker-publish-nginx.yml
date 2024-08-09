@@ -53,10 +53,9 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           flavors: |
             latest=auto
-            prefix=nginx-
           flavor: |
           tags: |
-            type=semver,pattern={{version}}
+            type=semver,pattern={{version}},preffix=nginx-
             type=sha,format=long 
 
       - name: Build and push Docker image

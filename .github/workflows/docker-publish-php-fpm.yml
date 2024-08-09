@@ -44,9 +44,8 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           flavor: |
             latest=auto
-            prefix=php-fpm-
           tags: |
-            type=semver,pattern={{version}}
+            type=semver,pattern={{version}},prefix=php-fpm-
             type=sha,format=long 
 
       - name: Build and push Docker image
