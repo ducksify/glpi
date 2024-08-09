@@ -44,7 +44,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           flavor: |
             latest=auto
-            preffix=php-fpm- 
+            prefix=php-fpm- 
           tags: |
             type=match,enable=true,priority=800,prefix=php-fpm-,suffix=,pattern=v(.*),group=1
             type=sha,format=long,prefix=php-fpm- 
