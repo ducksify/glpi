@@ -8,20 +8,19 @@ on:
   #   branches: 
   #     - "latest"
   #     - "10.0.*"
-  schedule:
-    - cron: '1 1 1 * *'
+  #schedule:
+  #  - cron: '1 1 1 * *'
   push:
     branches:
-      - "10.0.*"
-      - "latest"
+      - "latest" 
+  release: 
+    types: 
+      - published
+
 
 env:
-  # Use docker.io for Docker Hub if empty
-  # REGISTRY: ghcr.io
   REGISTRY: "docker.io"
-  # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
-  # VERSION: "10.0.16"
 
 jobs:
   build-nginx:
@@ -44,9 +43,7 @@ jobs:
         uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567
         with:
           registry: ${{ env.REGISTRY }}
-          # username: ${{ github.actor }}
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          # password: ${{ secrets.GITHUB_TOKEN }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Extract Docker metadata
@@ -54,9 +51,13 @@ jobs:
         uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          flavors: |
+            latest=auto
+            prefix=nginx-
+          flavor: |
           tags: |
-            type=ref,enable=true,priority=600,prefix=nginx-,suffix=,event=branch
-      # type=raw,value=nginx-${{ env.VERSION }}
+            type=semver,pattern={{version}}
+            type=sha,format=long 
 
       - name: Build and push Docker image
         id: build-and-push
