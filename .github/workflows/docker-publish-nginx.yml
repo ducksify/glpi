@@ -42,10 +42,12 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           flavors: |
-            latest=false
+            latest=auto 
+            preffix=nginx-
           tags: |
-            type=semver,pattern={{version}},preffix=nginx-  
-            type=sha,format=long,preffix=nginx- 
+            type=match,enable=true,priority=800,prefix=nginx-,suffix=,pattern=v(.*),group=1
+            type=sha,format=long,prefix=nginx- 
+
 
       - name: Build and push Docker image
         id: build-and-push
